@@ -1,0 +1,54 @@
+pandas
+sqlalchemy
+psycopg2-binary
+matplotlib
+seaborn
+
+
+📋 Project Requirements Specification
+1. Functional Requirements
+Data Ingestion: The system must be capable of reading large-scale historical population data from CSV formats (e.g., World Bank datasets with 16,000+ rows).
+
+Preprocessing & Cleaning: * The system must identify and handle missing values in critical fields (iso3, population).
+
+Data must be validated for type consistency (Years as Integers, Population as Floats).
+
+Database Persistence: * The system must establish a secure connection to a PostgreSQL server using SQLAlchemy.
+
+The system must automate the creation of a table named population_data.
+
+The upload process must support if_exists="replace" to allow for data refreshes without manual table deletion.
+
+Data Retrieval: Users must be able to verify the data migration by executing SQL queries (e.g., SELECT, COUNT) directly through the Python interface.
+
+
+Shutterstock
+Explore
+2. Technical Requirements (The Tech Stack)
+Programming Language: Python 3.12 or higher.
+
+Data Manipulation: pandas for DataFrame operations.
+
+Database Driver: psycopg2-binary for PostgreSQL communication.
+
+ORM/SQL Toolkit: SQLAlchemy (v2.0 preferred) for managing database engines and sessions.
+
+Database Server: PostgreSQL 15 or higher (local or cloud-hosted).
+
+Visualization (Optional): matplotlib or seaborn for trend analysis.
+
+3. Data Requirements (Input File Specifications)
+The input file (WB_population_cleaned.csv) must contain the following schema:
+| Field | Requirement |
+| :--- | :--- |
+| iso3 | Non-null, 3-letter unique country identifier. |
+| country | Standardized country or region name. |
+| year | Numerical year format (range: 1960–present). |
+| population | Non-negative numerical values representing total count. |
+
+4. Non-Functional Requirements
+Reliability: The connection logic must include try-except blocks to handle common database errors (e.g., Authentication failure, Database not found).
+
+Performance: The system should handle the bulk upload of 16,000+ rows in under 5 seconds on a standard local environment.
+
+Security: Database credentials (username/password) should ideally be stored in environment variables or a .env file rather than hard-coded in the script.
